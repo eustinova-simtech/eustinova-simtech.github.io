@@ -1,0 +1,22 @@
+.b-divider {
+  opacity: 0.7;
+  background-color: var(--black-to-silver-color);
+}
+
+.b-signup__login-link {
+  display: block;
+  text-align: center;
+}
+
+.b-signup__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.b-signup__title {
+  font-weight: normal;
+}
+
+
+/*# sourceMappingURL=Signup.9036.6673651a1385925d263a.css.map*/

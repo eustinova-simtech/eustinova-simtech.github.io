@@ -1,0 +1,119 @@
+.b-label {
+  display: flex;
+  position: absolute;
+  top: -0.3rem;
+  height: var(--normal-size);
+  font-size: var(--tiny-size);
+  z-index: 10;
+  justify-content: center;
+  color: var(--white-color);
+  font-family: var(--font-family-important);
+  width: unset;
+  min-width: var(--normal-size);
+  left: auto;
+  right: -0.5rem;
+  background: var(--secondary-gradient);
+  padding: 0 var(--tiny-padding);
+  border-radius: 10px;
+}[dir=rtl] .b-label {
+  right: auto;
+  left: -0.5rem;
+}
+
+.b-user-avatar {
+  min-width: 32px;
+  width: 100%;
+  height: 100%;
+  color: var(--white-to-silver-color);
+  padding: 0;
+  margin: 0;
+}
+
+.b-user-avatar__placeholder::after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+  margin-bottom: -5px;
+}
+
+.b-user-avatar__placeholder {
+  position: relative;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.b-user-avatar__acronym {
+  position: absolute;
+  top: 50%;
+  left: 50%/*rtl:ignore*/;
+  transform: translate(-50%, -50%)/*rtl:ignore*/;
+  font-size: var(--normal-size);
+}
+
+.b-profile-menu {
+  --menu-item-color: var(--link-color);
+}
+
+.b-profile-menu__item-link {
+  font-size: var(--normal-size);
+  width: 100%;
+  padding: 0 var(--common-padding);
+}
+
+/* button mui fix */
+button.b-profile-menu__item-link {
+  width: 100%;
+  margin-right: 0;
+}
+[dir=rtl] button.b-profile-menu__item-link {
+  margin-left: 0;
+}
+
+.b-profile-menu__item-icon {
+  margin-inline-end: var(--common-margin);
+  color: var(--primary-color);
+}
+
+.b-profile-menu__greeting {
+  padding: 0 var(--common-padding);
+}
+
+.b-profile-menu__item-link .b-label {
+  position: static;
+  margin-inline-start: var(--common-margin);
+}
+
+
+.b-profile-menu__item-link:focus {
+  color: var(--font-color);
+}
+
+.b-profile-menu__item-link:hover {
+  color: var(--link-color-highlighted);
+}
+
+@media (max-width: 1024px) {
+  .b-profile-menu__item-link:hover {
+    color: var(--font-color);
+  }
+}
+
+.b-profile-button {
+  position: relative;
+  color: hsl(
+    var(--primary-color-hsl-hue),
+    var(--hsl-saturate),
+    var(--hsl-light)
+  );
+  border: none;
+  background: inherit;
+  padding: 0;
+}
+
+.b-profile-button__icon-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+
+/*# sourceMappingURL=2939.2939.c587b3e18a8b9ff8ba2b.css.map*/

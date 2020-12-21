@@ -1,0 +1,14 @@
+.b-default-online-payment-iframe {
+  height: 100%;
+  position: absolute;
+  /* prevent covering close button */
+  top: 44px;
+  width: 100%;
+  left: 0;
+  border: none;
+}[dir=rtl] .b-default-online-payment-iframe {
+  right: 0;
+}
+
+
+/*# sourceMappingURL=33.33.0305105463d66a03392d.css.map*/

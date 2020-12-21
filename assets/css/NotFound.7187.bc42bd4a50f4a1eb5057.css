@@ -1,0 +1,26 @@
+.b-api-error__title {
+  color: var(--white-color);
+  font-size: 10rem;
+  text-align: center;
+}
+
+.b-api-error__content {
+  text-align: center;
+}
+
+.b-api-error__footer {
+  text-align: center;
+}
+
+.b-not-found__title {
+  color: var(--white-color);
+  text-align: center;
+}
+
+.b-not-found__content {
+  text-align: center;
+  margin-bottom: var(--common-margin);
+}
+
+
+/*# sourceMappingURL=NotFound.7187.bc42bd4a50f4a1eb5057.css.map*/

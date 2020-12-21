@@ -1,0 +1,18 @@
+.b-drawer {
+  position: fixed;
+  top: 0;
+  z-index: 500;
+  height: 100vh;
+  overflow: hidden;
+  /* transition: 0.4s; */
+  border-right-style: solid;
+}[dir=rtl] .b-drawer {
+  border-left-style: solid;
+}
+
+/* .b-drawer--opened {
+  transition: 0.2s;
+} */
+
+
+/*# sourceMappingURL=6671.6671.9f8ca2be547f3a0e24fe.css.map*/

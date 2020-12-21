@@ -1,0 +1,14 @@
+[dir='rtl'] .b-icon--reversible {
+  transform: scaleX(-1);
+}
+
+.b-back-button {
+  margin-right: var(--common-margin);
+  margin-left: -6px;
+}[dir=rtl] .b-back-button {
+  margin-left: var(--common-margin);
+  margin-right: -6px;
+}
+
+
+/*# sourceMappingURL=4183.4183.884f3c489c6e3429593e.css.map*/

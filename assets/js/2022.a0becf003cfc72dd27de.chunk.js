@@ -1,0 +1,2 @@
+(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[2022],{22022:function(e,n,s){"use strict";s.r(n);var c=s(95263),a=s.n(c),t=s(84480),r=s.n(t),i=s(76255),o=(s(45319),s(57334)),u=s(25540);n.default=function(e){var n=e.rtl,s=e.icon,c=e.size,t=void 0===c?24:c,l=e.className,p=r()(e,["rtl","icon","size","className"]);return i.createElement(s,a()({className:(0,o.Z)((0,u.Z)("b-icon",n&&"reversible"),l),width:t},p,{__source:{parentProps:e,name:"subcomponents/icon/Icon"}}))}},45319:function(){}}]);
+//# sourceMappingURL=2022.a0becf003cfc72dd27de.chunk.js.map

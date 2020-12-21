@@ -1,0 +1,15 @@
+.b-dynamic-form__section {
+  margin-bottom: var(--average-margin);
+}
+
+.b-dynamic-form__actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.b-dynamic-form__submit {
+  flex-grow: 1;
+}
+
+
+/*# sourceMappingURL=9748.9748.2bc85e867cc8f9e099ae.css.map*/

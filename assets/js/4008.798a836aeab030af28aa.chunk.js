@@ -1,0 +1,2 @@
+(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[4008],{74008:function(t,e,i){"use strict";i.r(e),e.default=function(t){var e;return{title:t.title,content:null===(e=t.content)||void 0===e?void 0:e.content,hideTitle:!t.shouldShowTitle,disposition:t.disposition}}}}]);
+//# sourceMappingURL=4008.798a836aeab030af28aa.chunk.js.map

@@ -1,0 +1,18 @@
+.b-sorting select option {
+  padding: 4px 6px;
+}
+
+.b-sorting .b-sorting__select {
+  white-space: normal;
+  height: unset;
+  padding-left: 4px;
+  padding-right: var(--large-padding);
+}
+
+[dir=rtl] .b-sorting .b-sorting__select {
+  padding-right: 4px;
+  padding-left: var(--large-padding);
+}
+
+
+/*# sourceMappingURL=9345.9345.d31fcee51cb788f4844f.css.map*/

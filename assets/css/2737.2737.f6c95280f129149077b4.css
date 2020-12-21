@@ -1,0 +1,11 @@
+#pwajet .b-price-range__slider {
+  color: var(--primary-color);
+}
+
+.b-price-range__labels {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/*# sourceMappingURL=2737.2737.f6c95280f129149077b4.css.map*/
