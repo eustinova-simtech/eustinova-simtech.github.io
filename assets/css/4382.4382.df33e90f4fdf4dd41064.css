@@ -1,0 +1,4 @@
+.b-rating{font-size:1rem;vertical-align:middle}.b-rating .dv-star-rating{vertical-align:middle;-webkit-margin-end:var(--common-margin);margin-inline-end:var(--common-margin)}.b-rating .dv-star-rating-star{line-height:1;margin-bottom:0}.b-rating__rating-label{margin-right:var(--common-margin)}[dir=rtl] .b-rating__rating-label{margin-right:unset;margin-left:var(--common-margin)}.b-rating--big{font-size:2rem}.b-rating__total-reviews{font-size:1rem;display:inline-block}.b-rating--big .b-rating__rating-label,.b-rating--big .b-rating__total-reviews{font-size:1.6rem}
+.b-testimonial__info{display:flex}.b-testimonial__date{opacity:.6}.b-testimonial__info .b-rating{margin-right:var(--common-margin)}[dir=rtl] .b-testimonial__info .b-rating{margin-right:unset;margin-left:var(--common-margin)}.b-testimonial__author{font-weight:500}
+
+/*# sourceMappingURL=4382.4382.df33e90f4fdf4dd41064.css.map*/

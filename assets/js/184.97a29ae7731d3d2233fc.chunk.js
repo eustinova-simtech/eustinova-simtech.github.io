@@ -1,0 +1,2 @@
+(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[184],{60184:function(e,n,r){"use strict";r.r(n);var c=r(67294);n.default=function(e){var n=e.children;return!e.children||Array.isArray(e.children)&&e.children.every((function(e){return!e}))?null:c.createElement("div",{className:"b-selection-handler",__source:{parentProps:e,name:"subcomponents/selection/SelectionHandler"}},n)}}}]);
+//# sourceMappingURL=184.97a29ae7731d3d2233fc.chunk.js.map

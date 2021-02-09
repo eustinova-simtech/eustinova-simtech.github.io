@@ -1,0 +1,3 @@
+.b-label{display:flex;position:absolute;left:auto;right:-.5rem;top:-.3rem;height:var(--normal-size);font-size:var(--tiny-size);z-index:10;background:var(--secondary-gradient);justify-content:center;color:var(--white-color);font-family:var(--font-family-important);padding:0 var(--tiny-padding);border-radius:10px;width:unset;min-width:var(--normal-size)}[dir=rtl] .b-label{right:auto;left:-.5rem}
+
+/*# sourceMappingURL=9936.9936.7f98672ba218ea2a218e.css.map*/

@@ -1,0 +1,4 @@
+.b-label{display:flex;position:absolute;left:auto;right:-.5rem;top:-.3rem;height:var(--normal-size);font-size:var(--tiny-size);z-index:10;background:var(--secondary-gradient);justify-content:center;color:var(--white-color);font-family:var(--font-family-important);padding:0 var(--tiny-padding);border-radius:10px;width:unset;min-width:var(--normal-size)}[dir=rtl] .b-label{right:auto;left:-.5rem}
+.b-wishlist-button{color:hsl(var(--primary-color-hsl-hue),var(--hsl-saturate),var(--hsl-light))}.b-wishlist-button__icon-wrapper{position:relative;display:inline-block}
+
+/*# sourceMappingURL=8866.8866.b1fd0b56ccb6e8a2d9b3.css.map*/

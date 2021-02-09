@@ -1,2 +1,0 @@
-(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[6059],{96059:function(e,u,t){"use strict";t.r(u),u.default=function(e){return{src:e.logo&&e.logo.url}}}}]);
-//# sourceMappingURL=6059.f7c7291d528d9aaea8dd.chunk.js.map

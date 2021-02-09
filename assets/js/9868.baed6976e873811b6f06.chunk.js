@@ -1,2 +1,0 @@
-(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[9868],{29868:function(e,t,u){"use strict";u.r(t),t.default=function(){return{}}}}]);
-//# sourceMappingURL=9868.baed6976e873811b6f06.chunk.js.map

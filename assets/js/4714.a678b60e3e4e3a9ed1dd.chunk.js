@@ -1,2 +1,0 @@
-(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[4714],{84714:function(e,a,c){"use strict";c.r(a);var n=c(76255),r=c(49449);a.default=function(){return n.createElement(r.ZP,{__source:{parentProps:null,name:"blocks/search/SearchBlock"}})}}}]);
-//# sourceMappingURL=4714.a678b60e3e4e3a9ed1dd.chunk.js.map

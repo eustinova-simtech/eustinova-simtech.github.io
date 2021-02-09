@@ -1,2 +1,0 @@
-(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[4563],{54563:function(e,t,a){"use strict";a.r(t);var r=a(76255),s=a(57334);t.default=function(e){var t=e.html,a=e.src,c=e.title,n=e.className;return r.createElement("iframe",{title:c,className:(0,s.Z)("b-iframe",n),src:t?"data:text/html;charset=utf-8,".concat(escape(t)):a,__source:{parentProps:e,name:"subcomponents/iframe/IFrame"}})}}}]);
-//# sourceMappingURL=4563.67eb0212b825e0728812.chunk.js.map

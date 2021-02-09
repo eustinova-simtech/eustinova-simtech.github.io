@@ -1,0 +1,4 @@
+.b-tab-panel{font-size:var(--font-general-size);margin-bottom:var(--big-margin)}
+.b-tabs{--active-color:hsl(var(--primary-color-hsl-hue),var(--hsl-saturate),var(--hsl-light));margin-bottom:var(--common-margin)}.b-tabs .b-tabs__indicator{background-color:var(--active-color)}
+
+/*# sourceMappingURL=7855.7855.aff279ac8ae65bb03093.css.map*/

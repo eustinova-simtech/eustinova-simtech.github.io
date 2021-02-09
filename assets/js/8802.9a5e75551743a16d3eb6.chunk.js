@@ -1,2 +1,0 @@
-(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[8802],{8802:function(s,t,a){"use strict";a.r(t);var e=a(76255),n=a(57334);a(4181),t.default=function(s){var t=s.status,a=s.className;return e.createElement("span",{className:(0,n.Z)("b-status",a),style:{backgroundColor:t.color},__source:{parentProps:s,name:"subcomponents/status/Status"}},t.name)}},4181:function(){}}]);
-//# sourceMappingURL=8802.9a5e75551743a16d3eb6.chunk.js.map

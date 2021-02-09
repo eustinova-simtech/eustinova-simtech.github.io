@@ -1,0 +1,2 @@
+(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[7248],{17248:function(e,n,a){"use strict";a.r(n);var t=a(67294),r="subcomponents/inactive-handler/InactiveHandler";n.default=function(e){var n=e.inactive,a=e.children;return n?t.createElement("div",{className:"b-inactive-handler",__source:{parentProps:e,name:r}},t.createElement("div",{className:"b-inactive-handler__content",__source:{parentProps:e,name:r}},a)):t.createElement(t.Fragment,null,a)}}}]);
+//# sourceMappingURL=7248.e22c02bde43b5c096909.chunk.js.map
