@@ -1360,7 +1360,7 @@ declare module "url/index" {
     export const createRegistrationLinkUrl: () => string;
     export const createOrdersLinkUrl: () => string;
     export const createOrderLinkUrl: (id: number) => string;
-    export const createSearchLinkUrl: () => string;
+    export const createSearchLinkUrl: (query?: string | undefined) => string;
     export const createNotificationsLinkUrl: () => string;
     export const createRestorePasswordLinkUrl: () => string;
     export const getLanguageFromUrl: (pathname?: string) => string;
@@ -1698,6 +1698,8 @@ declare module "components/layout-handler/ILayoutHandler" {
     }
     export interface IDispatchProps {
         getLayout: (type: LayoutTypes, slug?: string) => void;
+        setLayoutIsVisible: (type: LayoutTypes) => void;
+        setLayoutIsInvisible: (type: LayoutTypes) => void;
     }
     export type IProps = IOwnProps & IStateProps & IDispatchProps;
 }
@@ -3262,6 +3264,10 @@ declare module "redux/types/LayoutsState" {
          * List of layout`s codes, which are has been requested but not yet received
          */
         requesting: Array<string>;
+        /**
+         * List of layout`s codes, which are visible
+         */
+        visible: Array<string>;
     }
     export default LayoutsState;
 }
@@ -3335,6 +3341,7 @@ declare module "entities/category/Category" {
         setSubcategories(categories: Array<Category>): void;
         removeSubcategories(): void;
         getSmallIcon(): import("entities/image-pair/Icon").default<any> | null;
+        getBigIcon(): import("entities/image-pair/Icon").default<any> | null;
     }
     export default Category;
 }
@@ -3603,6 +3610,7 @@ declare module "entities/article/Article" {
         constructor(article: IArticle<T>);
         getReadingTime(): number;
         getSmallIcon(): Icon | null;
+        getBigIcon(): Icon | null;
     }
     export default Article;
 }
@@ -4594,7 +4602,8 @@ declare module "redux/actions/layout/LayoutActionTypes" {
         REQUEST_LAYOUT_FAILURE = "REQUEST_LAYOUT_FAILURE",
         DB_REQUEST_LAYOUT = "DB_REQUEST_LAYOUT",
         DB_REQUEST_LAYOUT_SUCCESS = "DB_REQUEST_LAYOUT_SUCCESS",
-        DB_REQUEST_LAYOUT_FAILURE = "DB_REQUEST_LAYOUT_FAILURE"
+        DB_REQUEST_LAYOUT_FAILURE = "DB_REQUEST_LAYOUT_FAILURE",
+        SET_LAYOUT_IS_VISIBLE = "SET_LAYOUT_IS_VISIBLE"
     }
     export default LayoutActionTypes;
 }
@@ -6428,13 +6437,27 @@ declare module "redux/actions/layout/DbRequestLayout" {
     }
     export function dbRequestLayoutFailure(dispatch: LayoutTypes, slug?: string): DbRequestLayoutFailure;
 }
+declare module "redux/actions/layout/SetLayoutIsVisible" {
+    import LayoutTypes from "constants/LayoutTypes";
+    import LayoutActionTypes from "redux/actions/layout/LayoutActionTypes";
+    export interface SetLayoutIsVisible {
+        type: LayoutActionTypes.SET_LAYOUT_IS_VISIBLE;
+        payload: {
+            dispatch: LayoutTypes;
+            isVisible: boolean;
+        };
+    }
+    export function setLayoutIsVisible(dispatch: LayoutTypes, isVisible: boolean): SetLayoutIsVisible;
+}
 declare module "redux/actions/layout/LayoutAction" {
     import LayoutActionTypes from "redux/actions/layout/LayoutActionTypes";
     import LayoutTypes from "constants/LayoutTypes";
     import { RequestLayout, RequestLayoutSuccess, RequestLayoutFailure } from "redux/actions/layout/RequestLayout";
     import { DbRequestLayout, DbRequestLayoutSuccess, DbRequestLayoutFailure } from "redux/actions/layout/DbRequestLayout";
+    import { SetLayoutIsVisible } from "redux/actions/layout/SetLayoutIsVisible";
     export * from "redux/actions/layout/RequestLayout";
     export * from "redux/actions/layout/DbRequestLayout";
+    export * from "redux/actions/layout/SetLayoutIsVisible";
     export interface GetLayout {
         type: LayoutActionTypes.GET_LAYOUT;
         payload: {
@@ -6443,7 +6466,7 @@ declare module "redux/actions/layout/LayoutAction" {
         };
     }
     export function getLayout(dispatch: LayoutTypes, slug?: string): GetLayout;
-    export type LayoutsAction = GetLayout | RequestLayout | RequestLayoutSuccess | RequestLayoutFailure | DbRequestLayout | DbRequestLayoutSuccess | DbRequestLayoutFailure;
+    export type LayoutsAction = GetLayout | RequestLayout | RequestLayoutSuccess | RequestLayoutFailure | DbRequestLayout | DbRequestLayoutSuccess | DbRequestLayoutFailure | SetLayoutIsVisible;
 }
 declare module "db/models/Category" {
     import Category from "entities/category/Category";
@@ -11456,10 +11479,11 @@ declare module "redux/epics/order/Order" {
     export default _default_24;
 }
 declare module "redux/epics/Layouts" {
-    import { ActionsObservable } from 'redux-observable';
+    import { ActionsObservable, Epic } from 'redux-observable';
     import { Observable } from 'rxjs';
-    import { RequestLayout, DbRequestLayout, GetLayout, RequestLayoutFailure, DbRequestLayoutFailure, RequestLayoutSuccess } from "redux/actions/layout/LayoutAction";
+    import { LayoutsAction, RequestLayout, DbRequestLayout, GetLayout, RequestLayoutFailure, DbRequestLayoutFailure, RequestLayoutSuccess } from "redux/actions/layout/LayoutAction";
     import IEpicDependencies from "redux/epics/IEpicDependencies";
+    import { StoreState } from "redux/types/index";
     /**
      * Request API for layout
      */
@@ -11481,6 +11505,7 @@ declare module "redux/epics/Layouts" {
      * Should request DB for a layout on network error
      */
     export const mapApiRequestFailureToDbRequestEpic: (action$: ActionsObservable<RequestLayoutFailure>) => Observable<DbRequestLayout>;
+    export const retryFailedRequest: Epic<LayoutsAction, LayoutsAction, StoreState>;
     /**
      * Should request API for a layout on DB error
      */
@@ -11583,7 +11608,7 @@ declare module "redux/epics/Layouts" {
             handleThirdpartyLogout: (provider: import("constants/AuthProviders").default | null) => any;
             requestNotificationPermission: () => Promise<NotificationPermission>;
         };
-    }) => Observable<import("redux/actions/layout/DbRequestLayout").DbRequestLayoutSuccess | DbRequestLayoutFailure>) | ((action$: ActionsObservable<RequestLayoutFailure>) => Observable<DbRequestLayout>) | ((action$: ActionsObservable<RequestLayoutSuccess>) => Observable<GetLayout>))[];
+    }) => Observable<import("redux/actions/layout/DbRequestLayout").DbRequestLayoutSuccess | DbRequestLayoutFailure>) | ((action$: ActionsObservable<RequestLayoutFailure>) => Observable<DbRequestLayout>) | Epic<LayoutsAction, LayoutsAction, StoreState, any> | ((action$: ActionsObservable<RequestLayoutSuccess>) => Observable<GetLayout>))[];
     export default _default_25;
 }
 declare module "redux/epics/Category" {
@@ -11644,11 +11669,12 @@ declare module "redux/epics/Category" {
 }
 declare module "redux/epics/product/Product" {
     import { Observable } from 'rxjs';
-    import { ActionsObservable } from 'redux-observable';
+    import { ActionsObservable, StateObservable } from 'redux-observable';
     import { RequestCategoryProducts, RequestSearchProducts, RequestCategoryProductsFailure, RequestProduct, RequestProductFailure, DbRequestProduct, DbRequestCategoryProducts, RequestProductSuccess, RequestCategoryProductsSuccess, RequestSearchProductsSuccess, RequestSearchProductsFailure } from "redux/actions/product/ProductAction";
     import Product from "entities/product/Product";
     import { RequestLayoutFailure, RequestLayout } from "redux/actions/index";
     import IEpicDependencies from "redux/epics/IEpicDependencies";
+    import { StoreState } from "redux/types/index";
     /**
      * Requests a product from API
      */
@@ -11684,7 +11710,7 @@ declare module "redux/epics/product/Product" {
     /**
      * set current product is loading true when map layout request for a product begins
      */
-    export const mapSetProductIsRequestingOnLayoutEpic: (action$: ActionsObservable<RequestLayout>) => Observable<import("redux/actions").SetProductIsRequesting>;
+    export const mapSetProductIsRequestingOnLayoutEpic: (action$: ActionsObservable<RequestLayout>, state$: StateObservable<StoreState>) => Observable<import("redux/actions").SetProductIsRequesting>;
     const _default_27: (((action$: ActionsObservable<RequestProduct>, state$: null, { api, parser, }: {
         api: {
             auth: typeof import("api/Auth");
@@ -11920,7 +11946,7 @@ declare module "redux/epics/product/Product" {
             handleThirdpartyLogout: (provider: import("constants/AuthProviders").default | null) => any;
             requestNotificationPermission: () => Promise<NotificationPermission>;
         };
-    }) => Observable<import("redux/actions").DbRequestCategoryProductsSuccess>) | ((action$: ActionsObservable<RequestLayoutFailure>) => Observable<RequestProductFailure>) | ((action$: ActionsObservable<RequestLayout>) => Observable<import("redux/actions").SetProductIsRequesting>))[];
+    }) => Observable<import("redux/actions").DbRequestCategoryProductsSuccess>) | ((action$: ActionsObservable<RequestLayoutFailure>) => Observable<RequestProductFailure>) | ((action$: ActionsObservable<RequestLayout>, state$: StateObservable<StoreState>) => Observable<import("redux/actions").SetProductIsRequesting>))[];
     export default _default_27;
 }
 declare module "redux/epics/Article" {
@@ -13298,150 +13324,11 @@ declare module "components/subcomponents/option/selected/ProductOptionsSelected"
     const ProductOptionsSelected: React.FC<IProps>;
     export default ProductOptionsSelected;
 }
-declare module "contexts/currency/CurrencyContext" {
-    import React from 'react';
-    const CurrencyContext: React.Context<string>;
-    export default CurrencyContext;
-}
 declare module "contexts/parent/ParentContext" {
     import React from 'react';
     import Parent from "entities/parent/Parent";
     const ParentContext: React.Context<Parent[] | null>;
     export default ParentContext;
-}
-declare module "extensions/vendor/entities/IVendor" {
-    import { IEntityExtendable } from "entities/IEntityExtendable";
-    import { IEntityWithSlug } from "entities/IEntityWithSlug";
-    import { IExtra } from "entities/IExtra";
-    import Address from "entities/profile/Address";
-    interface IVendor<T extends IExtra = any> extends IEntityWithSlug, IEntityExtendable<T> {
-        id: number;
-        logo: string;
-        name: string;
-        description: string;
-        createdAt: Date;
-        averageRating: number;
-        address: Address;
-    }
-    export default IVendor;
-}
-declare module "extensions/vendor/entities/Vendor" {
-    import IVendor from "extensions/vendor/entities/IVendor";
-    import Address from "entities/profile/Address";
-    import { IExtra } from "entities/IExtra";
-    class Vendor<T extends IExtra = any> {
-        id: number;
-        logo: string;
-        name: string;
-        description: string;
-        averageRating: number;
-        slug: string;
-        url: string;
-        address: Address;
-        createdAt: Date;
-        extra: T;
-        constructor(vendor: IVendor<T>);
-    }
-    export default Vendor;
-}
-declare module "components/microformats/OpenGraph/IOpenGraph" {
-    import Product from "entities/product/Product";
-    import Article from "entities/article/Article";
-    import Category from "entities/category/Category";
-    import Vendor from "extensions/vendor/entities/Vendor";
-    export interface IOwnProps {
-    }
-    export interface IStateProps {
-        product: Product | null;
-        article: Article | null;
-        category: Category | null;
-        vendor?: Vendor;
-    }
-    export interface IDispatchProps {
-    }
-    export type IProps = IOwnProps & IStateProps & IDispatchProps;
-}
-declare module "extensions/vendor/url" {
-    export const vendorsRoute = "/:language([a-z]{2})/vendors/";
-    export const vendorRoute = "/:language([a-z]{2})/vendors/:itemId";
-    export const vendorSignupRoute = "/:language([a-z]{2})/vendors/signup";
-    export const createVendorsUrl: () => string;
-    export const createVendorUrl: (id: string) => string;
-    export const createVendorSignupUrl: () => string;
-}
-declare module "components/microformats/OpenGraph/OpenGraph" {
-    import React from 'react';
-    import { IProps } from "components/microformats/OpenGraph/IOpenGraph";
-    /**
-     * Component for setting open graph's metadata
-     *
-     * @param { IProps } props
-     */
-    const OpenGraph: React.FC<IProps>;
-    /**
-     * Function for checking if current pathname on the page
-     * is equal to pathname provided to function
-     */
-    export const isPathsMatched: (currentPathname: string, providedPath: string) => boolean;
-    export default OpenGraph;
-}
-declare module "components/microformats/Schema/ISchema" {
-    import Product from "entities/product/Product";
-    import Article from "entities/article/Article";
-    export interface IOwnProps {
-    }
-    export interface IStateProps {
-        product: Product | null;
-        article: Article | null;
-    }
-    export interface IDispatchProps {
-    }
-    export type IProps = IOwnProps & IStateProps & IDispatchProps;
-}
-declare module "components/microformats/Schema/Schema.messages" {
-    const _default_41: {
-        timeToRead: {
-            id: string;
-            defaultMessage: string;
-        };
-    };
-    export default _default_41;
-}
-declare module "components/microformats/Schema/Schema" {
-    import React from 'react';
-    import { IProps } from "components/microformats/Schema/ISchema";
-    /**
-     * Component for setting schemes from schema.org
-     *
-     * @param { IProps } props
-     */
-    const Schema: React.FC<IProps>;
-    export default Schema;
-}
-declare module "components/microformats/Schema/SchemaContainer" {
-    import { IOwnProps } from "components/microformats/Schema/ISchema";
-    const _default_42: import("react-redux").ConnectedComponent<import("react").FC<import("components/microformats/Schema/ISchema").IProps>, Pick<import("components/microformats/Schema/ISchema").IProps, never> & IOwnProps>;
-    export default _default_42;
-}
-declare module "components/microformats/OpenGraph/OpenGraphContainer" {
-    import { IOwnProps } from "components/microformats/OpenGraph/IOpenGraph";
-    const _default_43: import("react-redux").ConnectedComponent<import("react").FC<import("components/microformats/OpenGraph/IOpenGraph").IProps>, Pick<import("components/microformats/OpenGraph/IOpenGraph").IProps, never> & IOwnProps>;
-    export default _default_43;
-}
-declare module "components/microformats/IMicroformats" {
-    export interface IOwnProps {
-    }
-    export interface IStateProps {
-    }
-    export interface IDispatchProps {
-    }
-    export type IProps = IOwnProps & IStateProps & IDispatchProps;
-}
-declare module "components/microformats/Microformats" {
-    import React from 'react';
-    import { IProps } from "components/microformats/IMicroformats";
-    const Microformats: React.FC<IProps>;
-    export default Microformats;
 }
 declare module "components/subcomponents/parents/IParents" {
     import Parent from "entities/parent/Parent";
@@ -13545,8 +13432,8 @@ declare module "components/subcomponents/rating/overview/RatingOverview" {
 }
 declare module "components/subcomponents/rating/overview/RatingOverviewContainer" {
     import { IOwnProps } from "components/subcomponents/rating/overview/IRatingOverview";
-    const _default_44: import("react-redux").ConnectedComponent<import("react").FC<import("components/subcomponents/rating/overview/IRatingOverview").IProps>, Pick<import("components/subcomponents/rating/overview/IRatingOverview").IProps, "type" | "id"> & IOwnProps>;
-    export default _default_44;
+    const _default_41: import("react-redux").ConnectedComponent<import("react").FC<import("components/subcomponents/rating/overview/IRatingOverview").IProps>, Pick<import("components/subcomponents/rating/overview/IRatingOverview").IProps, "type" | "id"> & IOwnProps>;
+    export default _default_41;
 }
 declare module "components/subcomponents/select/ISelect" {
     export interface IOwnProps {
@@ -13738,13 +13625,13 @@ declare module "components/subcomponents/toggle-search-button/IToggleSearchButto
     }
 }
 declare module "components/subcomponents/toggle-search-button/ToggleSearchButton.messages" {
-    const _default_45: {
+    const _default_42: {
         title: {
             id: string;
             defaultMessage: string;
         };
     };
-    export default _default_45;
+    export default _default_42;
 }
 declare module "components/subcomponents/toggle-search-button/ToggleSearchButton" {
     import React from 'react';
@@ -13826,13 +13713,13 @@ declare module "components/subcomponents/checkbox/ICheckbox" {
     export type IProps = IOwnProps & React.InputHTMLAttributes<HTMLInputElement>;
 }
 declare module "components/subcomponents/checkbox/Checkbox.messages" {
-    const _default_46: {
+    const _default_43: {
         expandAria: {
             id: string;
             defaultMessage: string;
         };
     };
-    export default _default_46;
+    export default _default_43;
 }
 declare module "components/subcomponents/checkbox/Checkbox" {
     import React from 'react';
