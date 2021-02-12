@@ -1,0 +1,2 @@
+(self.webpackChunkpwajet=self.webpackChunkpwajet||[]).push([[8473],{7047:function(e,t,n){"use strict";n.r(t);var u=n(67294),l=n(26554);t.default=function(){return u.createElement(l.Z,{size:32,__source:{parentProps:null,name:"blocks/profile-button-block/ProfileButtonBlock"}})}}}]);
+//# sourceMappingURL=8473.f91322477e6c5cd994c5.chunk.js.map

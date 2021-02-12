@@ -295,7 +295,6 @@ declare module "intl/en" {
         'app.components.article-single-item.timeToRead': string;
         'app.components.article-sorting.date': string;
         'app.components.article-sorting.name': string;
-        'app.components.article.singleItem.timeToRead': string;
         'app.components.breadcrumbs.aria-label': string;
         'app.components.cartError': string;
         'app.components.checkout-button.button-name': string;
@@ -376,6 +375,8 @@ declare module "intl/en" {
         'app.components.totals.tax-added': string;
         'app.components.totals.tax-included': string;
         'app.components.totals.total': string;
+        'app.components.update-prompt.reload': string;
+        'app.components.update-prompt.update-message': string;
         'app.components.user-avatar.avatar-alt': string;
         'app.components.user-avatar.guest-acronym': string;
         'app.components.userinfo.guest': string;
@@ -390,7 +391,8 @@ declare module "intl/en" {
         'app.components.vendor-sorting.name': string;
         'app.components.vendor-sorting.rating': string;
         'app.components.vendor.registered': string;
-        'app.components.wishlist-button.add-and-remove': string;
+        'app.components.wishlist-button.add-to': string;
+        'app.components.wishlist-button.remove-from': string;
         'app.custom-forms.accept_terms.label': string;
         'app.custom-forms.default-checkbox-label.label': string;
         'app.form.checkbox.expand-aria-label': string;
@@ -753,10 +755,13 @@ declare module "intl/ru" {
         /**
          * Wishlist Button
          */
-        'app.components.wishlist-button.add-and-remove': string;
+        'app.components.wishlist-button.add-to': string;
+        'app.components.wishlist-button.remove-from': string;
         'app.custom-forms.accept_terms.label': string;
         'app.custom-forms.default-checkbox-label.label': string;
         'app.form.checkbox.expand-aria-label': string;
+        'app.components.update-prompt.reload': string;
+        'app.components.update-prompt.update-message': string;
     };
     export default _default_1;
 }
@@ -789,7 +794,6 @@ declare module "intl/messages" {
             'app.components.article-single-item.timeToRead': string;
             'app.components.article-sorting.date': string;
             'app.components.article-sorting.name': string;
-            'app.components.article.singleItem.timeToRead': string;
             'app.components.breadcrumbs.aria-label': string;
             'app.components.cartError': string;
             'app.components.checkout-button.button-name': string;
@@ -870,6 +874,8 @@ declare module "intl/messages" {
             'app.components.totals.tax-added': string;
             'app.components.totals.tax-included': string;
             'app.components.totals.total': string;
+            'app.components.update-prompt.reload': string;
+            'app.components.update-prompt.update-message': string;
             'app.components.user-avatar.avatar-alt': string;
             'app.components.user-avatar.guest-acronym': string;
             'app.components.userinfo.guest': string;
@@ -884,7 +890,8 @@ declare module "intl/messages" {
             'app.components.vendor-sorting.name': string;
             'app.components.vendor-sorting.rating': string;
             'app.components.vendor.registered': string;
-            'app.components.wishlist-button.add-and-remove': string;
+            'app.components.wishlist-button.add-to': string;
+            'app.components.wishlist-button.remove-from': string;
             'app.custom-forms.accept_terms.label': string;
             'app.custom-forms.default-checkbox-label.label': string;
             'app.form.checkbox.expand-aria-label': string;
@@ -1172,10 +1179,13 @@ declare module "intl/messages" {
             'app.components.reset-filters.button-title': string;
             'app.components.show-all.button-title': string;
             'app.components.split-button.aria-label': string;
-            'app.components.wishlist-button.add-and-remove': string;
+            'app.components.wishlist-button.add-to': string;
+            'app.components.wishlist-button.remove-from': string;
             'app.custom-forms.accept_terms.label': string;
             'app.custom-forms.default-checkbox-label.label': string;
             'app.form.checkbox.expand-aria-label': string;
+            'app.components.update-prompt.reload': string;
+            'app.components.update-prompt.update-message': string;
         };
     };
     export default _default_2;
@@ -1429,12 +1439,13 @@ declare module "intl/addMessages" {
 declare module "components/subcomponents/button/IButton" {
     import { ButtonProps } from '@material-ui/core/Button';
     export interface IOwnProps {
-        appearance?: 'primary' | 'secondary' | 'dark';
+        appearance?: 'primary' | 'secondary' | 'dark' | 'text';
         /**
          * Render custom button content
          * It will be wrapped by clickable element
          */
         render?: () => React.ReactNode;
+        size?: 'small' | 'medium' | 'large';
     }
     export type IProps<C extends React.ElementType> = Omit<ButtonProps<C, {
         component?: C;
@@ -4198,7 +4209,7 @@ declare module "entities/action-banner/IActionBanner" {
         icon?: () => JSX.Element;
         text: string | React.ReactElement | React.ReactNodeArray;
         acceptButton?: IButton;
-        declineButton: IButton;
+        declineButton?: IButton;
     }
     interface IButton {
         text?: string;
@@ -6388,9 +6399,10 @@ declare module "redux/actions/layout/RequestLayout" {
         payload: {
             dispatch: LayoutTypes;
             slug?: string;
+            shouldFallbackToDB?: boolean;
         };
     }
-    export function requestLayout(dispatch: LayoutTypes, slug?: string): RequestLayout;
+    export function requestLayout(dispatch: LayoutTypes, slug?: string, shouldFallbackToDB?: boolean): RequestLayout;
     export interface RequestLayoutSuccess {
         type: LayoutActionTypes.REQUEST_LAYOUT_SUCCESS;
         payload: {
@@ -6405,9 +6417,10 @@ declare module "redux/actions/layout/RequestLayout" {
             dispatch: LayoutTypes;
             error: ApiError;
             slug?: string;
+            shouldFallbackToDB?: boolean;
         };
     }
-    export function requestLayoutFailure(dispatch: LayoutTypes, error: ApiError, slug?: string): RequestLayoutFailure;
+    export function requestLayoutFailure(dispatch: LayoutTypes, error: ApiError, slug?: string, shouldFallbackToDB?: boolean): RequestLayoutFailure;
 }
 declare module "redux/actions/layout/DbRequestLayout" {
     import LayoutActionTypes from "redux/actions/layout/LayoutActionTypes";
