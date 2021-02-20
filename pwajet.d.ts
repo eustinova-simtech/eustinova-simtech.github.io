@@ -338,6 +338,7 @@ declare module "intl/en" {
         'app.components.orders-selection.no-results': string;
         'app.components.product-order-item.amount': string;
         'app.components.product-single-item.add-to-cart-button-title': string;
+        'app.components.product-single-item.split-button-aria-label': string;
         'app.components.product-sorting.bestsellers': string;
         'app.components.product-sorting.discounts': string;
         'app.components.product-sorting.name': string;
@@ -368,7 +369,6 @@ declare module "intl/en" {
         'app.components.screenHandler.next': string;
         'app.components.search.products.placeholder': string;
         'app.components.show-all.button-title': string;
-        'app.components.split-button.aria-label': string;
         'app.components.totals.discount': string;
         'app.components.totals.shipping-cost': string;
         'app.components.totals.subtotal': string;
@@ -648,6 +648,7 @@ declare module "intl/ru" {
         'app.components.offline-panel.reload-button': string;
         'app.components.no-content.title': string;
         'app.components.product-single-item.add-to-cart-button-title': string;
+        'app.components.product-single-item.split-button-aria-label': string;
         'app.components.totals.subtotal': string;
         'app.components.totals.discount': string;
         'app.components.totals.shipping-cost': string;
@@ -837,6 +838,7 @@ declare module "intl/messages" {
             'app.components.orders-selection.no-results': string;
             'app.components.product-order-item.amount': string;
             'app.components.product-single-item.add-to-cart-button-title': string;
+            'app.components.product-single-item.split-button-aria-label': string;
             'app.components.product-sorting.bestsellers': string;
             'app.components.product-sorting.discounts': string;
             'app.components.product-sorting.name': string;
@@ -867,7 +869,6 @@ declare module "intl/messages" {
             'app.components.screenHandler.next': string;
             'app.components.search.products.placeholder': string;
             'app.components.show-all.button-title': string;
-            'app.components.split-button.aria-label': string;
             'app.components.totals.discount': string;
             'app.components.totals.shipping-cost': string;
             'app.components.totals.subtotal': string;
@@ -1114,6 +1115,7 @@ declare module "intl/messages" {
             'app.components.offline-panel.reload-button': string;
             'app.components.no-content.title': string;
             'app.components.product-single-item.add-to-cart-button-title': string;
+            'app.components.product-single-item.split-button-aria-label': string;
             'app.components.totals.subtotal': string;
             'app.components.totals.discount': string;
             'app.components.totals.shipping-cost': string;
@@ -4435,6 +4437,7 @@ declare module "components/cart/add-to-cart-button/IAddToCartButton" {
          * Render component's wrapper from render-prop
          */
         render?: () => ReactElement;
+        disabled?: boolean;
     }
     export interface IStateProps {
         queueAmount: number;
@@ -7132,7 +7135,7 @@ declare module "redux/selectors/Cart" {
 }
 declare module "components/cart/add-to-cart-button/AddToCartButtonContainer" {
     import { IOwnProps } from "components/cart/add-to-cart-button/IAddToCartButton";
-    const _default_4: import("react-redux").ConnectedComponent<import("react").FC<import("components/cart/add-to-cart-button/IAddToCartButton").IProps>, Pick<import("components/cart/add-to-cart-button/IAddToCartButton").IProps, "className" | "children" | "render" | "icon" | "product" | "addToCart" | "wrapperClassName"> & IOwnProps>;
+    const _default_4: import("react-redux").ConnectedComponent<import("react").FC<import("components/cart/add-to-cart-button/IAddToCartButton").IProps>, Pick<import("components/cart/add-to-cart-button/IAddToCartButton").IProps, "className" | "disabled" | "children" | "render" | "icon" | "product" | "addToCart" | "wrapperClassName"> & IOwnProps>;
     export default _default_4;
 }
 declare module "components/wishlist/add-to-wishlist-button/IAddToWishlistButton" {
